@@ -1,0 +1,26 @@
+---
+title: "Instruções"
+author: "Flávia Lemos"
+date: "2025-06-07"
+output: html_document
+---
+
+## Passo a passo para usar o app
+
+1.  Prepare seu arquivo Excel conforme o modelo abaixo.
+2.  Suba o arquivo `.xlsx` usando o botão "Browse.." da aba "Upload do arquivo".
+3.  Verifique na pré-visualização se a sequência das informações estão corretas no seu documento de input.
+
+### Modelo aceito
+
+-   A planilha deve conter estas informações sequencialmente:
+   
+  | `ID Talhão` | `Gênero` | `Idade atual` | `Ano de plantio` | `Idade de colheita` | `Ano de colheita` | `Distância de transporte até a fábrica` | `Volume m³` | `Modalidade` |
+
+------------------------------------------------------------------------
+
+❕Ns nomes das colunas não precisam ser idênticos aos do exemplo, contanto que as informações correspondam.
+
+### Exemplo de tabela:
+
+![](imagem_teste.png)
