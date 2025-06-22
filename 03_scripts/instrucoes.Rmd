@@ -15,12 +15,12 @@ output: html_document
 
 -   A planilha deve conter estas informações sequencialmente:
    
-  | `ID Talhão` | `Gênero` | `Idade atual` | `Ano de plantio` | `Idade de colheita` | `Ano de colheita` | `Distância de transporte até a fábrica` | `Volume m³` | `Modalidade` |
+  | `ID Talhão` | `Gênero` | `Idade atual (anos)` | `Ano de plantio` | `Idade de colheita (anos)` | `Ano de colheita` | `Distância de transporte até a fábrica (km)` | | `Área (ha)` | `Volume (m³)` | `Modalidade` | 
 
 ------------------------------------------------------------------------
 
 ❕Ns nomes das colunas não precisam ser idênticos aos do exemplo, contanto que as informações correspondam.
 
-### Exemplo de tabela:
+### Exemplo de uma fração de tabela:
 
-![](imagem_teste.png)
+![](exemplo_dados.png)

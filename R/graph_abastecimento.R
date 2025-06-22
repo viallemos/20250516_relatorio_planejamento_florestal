@@ -1,18 +1,14 @@
 
-# Load all ----------------------------------------------------------------
-
-library(echarts4r)
-
 # Gráfico -----------------------------------------------------------------
 
 graph_abastecimento <- function(dados) {
-  # dados <- readxl::read_xlsx("03_scripts/exemplo.xlsx")
   dados |> 
     dplyr::select(
       ano_colheita = 6, 
-      volume_m3 = 8, 
-      modalidade = 9
+      volume_m3 = 9, 
+      modalidade = 10
       ) |>
+    dplyr::mutate(volume_m3 = volume_m3/10^3) |> # para transformar em mil/m3
     dplyr::group_by(ano_colheita, modalidade) |> 
     dplyr::summarise(
       vol_total = sum(volume_m3, na.rm = TRUE),
@@ -27,7 +23,7 @@ graph_abastecimento <- function(dados) {
       total_ano = dplyr::across(c(propria,compra)) |>
       rowSums(na.rm = TRUE),
       ano_colheita = forcats::as_factor(ano_colheita),
-      dplyr::across(2:4, ~ round(.x, 0)),
+      dplyr::across(2:4, ~ round(.x, 2)),
       dplyr::across(
         c(propria, compra, total_ano),
         ~ dplyr::case_when(
@@ -73,6 +69,9 @@ graph_abastecimento <- function(dados) {
       ) |> 
       e_y_axis(show = FALSE) |> 
       e_tooltip(trigger = "axis") |>
-      e_theme("auritus")
+      e_theme("auritus") |>
+      e_title(text = "Volume de Eucalipto (mil/m³)")
+  
+    
 
 }
