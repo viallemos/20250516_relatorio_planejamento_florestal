@@ -2,7 +2,6 @@
 # Gráfico -----------------------------------------------------------------
 
 graph_dmt <- function(dados) {
-  # dados <- readxl::read_xlsx("01_raw_data/exemplo.xlsx")
   dados |> 
     dplyr::select(
       ano_colheita = 6,

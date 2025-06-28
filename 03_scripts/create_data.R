@@ -3,17 +3,23 @@
 
 # Premissas
 
-# Preço médio da madeira em R$/m³
-# Considera-se R$ 135 por estere em pé (CEPEA, 2025) e 0,725 m³ por estere (Portaria IEF-MG nº 159/2012)
-preco_medio <- 135/0.725 
-
-# Número de talhões simulados
+## Número de talhões simulados
 n_talhoes <- 100
 
-# Define a área total necessária para atender ao consumo anual da fábrica
-# Premissa: demanda de 100.000 m³ anuais com produtividade média de 33,7 m³/ha/ano em 7 anos
-# Área anual de colheita = 100.000 / (33,7 * 7) = 423,91 ha
-area_necessaria <- 423.91*7
+## Ano corrente
+ano_atual <- lubridate::year(Sys.Date())
+
+## Preço médio da madeira em R$/m³
+## Considera-se R$ 135 por estere em pé (CEPEA, 2025) e 0,725 m³ por estere (Portaria IEF-MG nº 159/2012)
+preco_medio <- 135*0.725 
+
+## Define a área total necessária para atender ao consumo anual da fábrica
+## Demanda de 100.000 m³ anuais com produtividade média de 33,7 m³/ha/ano em 7,2 anos
+demanda_de_fabrica <- 100000
+ima <- 33.7
+idade <- 7.2
+ha_colhidos_necessarios <- demanda_de_fabrica/(ima*idade)
+area_necessaria <- ha_colhidos_necessarios*idade
 
 # Get data ----------------------------------------------------------------
 
@@ -26,8 +32,7 @@ library(wakefield)
 # Base em si 
 dados <- r_data_frame(  
   n = n_talhoes,  
-  age = r_sample_integer(n = n_talhoes, x = 3:15),# sorteia idades entre 3 e 15 anos  
-  ano_plantio = r_sample_integer(n = n_talhoes, x = 2014:2024), # sorteia ano de plantio entre 2014 e 2024
+  ano_plantio = r_sample_integer(n = n_talhoes, x = 2012:2024), # sorteia ano de plantio entre 2012 e 2024
   dmt = rnorm(n_talhoes, 80, 20), # DMT com média 80 e desvio padrão de 20 km,
   area_ha = {
     x <- runif(n_talhoes, 10, 100)
@@ -35,15 +40,16 @@ dados <- r_data_frame(
   } # sorteia a área dos talhões entre 10 e 100 ha e normaliza para somar exatamente 2967 ha
 ) |> 
   dplyr::mutate(
+    idade_atual = ano_atual - ano_plantio, 
     ima_var = runif(dplyr::n(), min = 30.7, max = 36.7), # sorteia valores de IMA entre 30,7 e 36,7 m³/ha/ano, simulando a variabilidade entre talhões
     idade_colheita = dplyr::case_when(
-      age >= 5 ~ age,
+      idade_atual >= 5 ~ idade_atual,
       .default = 7
     ), # define a idade de colheita: se a idade atual ≥ 5, colhe na idade atual, senão, padroniza para 7 anos
     ano_colheita = ano_plantio + idade_colheita,
     volume_m3_ha = idade_colheita * ima_var, # volume por hectare
     volume_m3 = volume_m3_ha * area_ha, # volume do talhao
-    genero = "eucalipto",
+    genero = "Eucalyptus",
     talhao = paste0("t", dplyr::row_number()) # gera um identificador único para cada talhão (t1, t2, ..., t100)
   ) |> 
   dplyr::group_by(ano_colheita) |> # agrupa para sumarização
@@ -62,7 +68,7 @@ dados <- r_data_frame(
   dplyr::select(
     talhao,
     genero,
-    idade_atual = age,
+    idade_atual,
     ano_plantio,
     idade_colheita,
     ano_colheita,
