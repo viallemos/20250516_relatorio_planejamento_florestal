@@ -1,6 +1,7 @@
 
 # Load all ----------------------------------------------------------------
 
+library(markdown)
 library(shiny)
 library(bslib)
 library(echarts4r)
@@ -148,7 +149,15 @@ server <- function(input, output) {
       need(input$arquivo, "Envie um arquivo para visualizar o gráfico.")
     ) # se nenhum arquivo for enviado o gráfico não é renderizado e envia a mensagem
   
-    dados <- dados_upload()
+    dados <- dados_upload() |> 
+      dplyr::rename(
+        idade_colheita = 5,
+        ano_colheita = 6, 
+        dmt = 7,
+        area_ha = 8,
+        volume_m3 = 9, 
+        modalidade = 10
+      )
     
     colunas_necessarias <- c("ano_colheita", "volume_m3", "modalidade")
     
@@ -192,7 +201,15 @@ server <- function(input, output) {
       need(input$arquivo, "Envie um arquivo para visualizar o gráfico.")
     ) # se nenhum arquivo for enviado o gráfico não é renderizado e envia a mensagem
     
-    dados <- dados_upload()
+    dados <- dados_upload() |> 
+      dplyr::rename(
+        idade_colheita = 5,
+        ano_colheita = 6, 
+        dmt = 7,
+        area_ha = 8,
+        volume_m3 = 9, 
+        modalidade = 10
+      )
     
     colunas_necessarias <- c("ano_colheita", "volume_m3")
     
@@ -236,7 +253,15 @@ server <- function(input, output) {
       need(input$arquivo, "Envie um arquivo para visualizar o gráfico.")
     ) # se nenhum arquivo for enviado o gráfico não é renderizado e envia a mensagem
     
-    dados <- dados_upload()
+    dados <- dados_upload() |> 
+      dplyr::rename(
+        idade_colheita = 5,
+        ano_colheita = 6, 
+        dmt = 7,
+        area_ha = 8,
+        volume_m3 = 9, 
+        modalidade = 10
+      )
     
     colunas_necessarias <- c("ano_colheita", "idade_colheita", "area_ha")
     
@@ -280,7 +305,15 @@ server <- function(input, output) {
       need(input$arquivo, "Envie um arquivo para visualizar o gráfico.")
     ) # se nenhum arquivo for enviado o gráfico não é renderizado e envia a mensagem
     
-    dados <- dados_upload()
+    dados <- dados_upload() |> 
+      dplyr::rename(
+        idade_colheita = 5,
+        ano_colheita = 6, 
+        dmt = 7,
+        area_ha = 8,
+        volume_m3 = 9, 
+        modalidade = 10
+      )
     
     colunas_necessarias <- c("ano_colheita", "dmt", "area_ha", "modalidade")
     
@@ -324,7 +357,15 @@ server <- function(input, output) {
       need(input$arquivo, "Envie um arquivo para visualizar o gráfico.")
     ) # se nenhum arquivo for enviado o gráfico não é renderizado e envia a mensagem
     
-    dados <- dados_upload()
+    dados <- dados_upload() |> 
+      dplyr::rename(
+        idade_colheita = 5,
+        ano_colheita = 6, 
+        dmt = 7,
+        area_ha = 8,
+        volume_m3 = 9, 
+        modalidade = 10
+      )
     
     colunas_necessarias <- c("ano_colheita", "idade_colheita", "volume_m3")
     

@@ -19,7 +19,7 @@ output: html_document
 
 ------------------------------------------------------------------------
 
-❕Ns nomes das colunas não precisam ser idênticos aos do exemplo, contanto que as informações correspondam.
+❕Os nomes das colunas não precisam ser idênticos aos do exemplo, contanto que as informações correspondam.
 
 ### Exemplo de uma fração de tabela:
 

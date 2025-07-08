@@ -9,11 +9,11 @@ n_talhoes <- 100
 ## Ano corrente
 ano_atual <- lubridate::year(Sys.Date())
 
-## Preço médio da madeira em R$/m³
-## Considera-se R$ 135 por estere em pé (CEPEA, 2025) e 0,725 m³ por estere (Portaria IEF-MG nº 159/2012)
+## Preço médio da madeira em R$/m³:
+## Considerou-se R$ 135 por estere em pé (CEPEA, 2025) e 0,725 m³ por estere (Portaria IEF-MG nº 159/2012)
 preco_medio <- 135*0.725 
 
-## Define a área total necessária para atender ao consumo anual da fábrica
+## Definição da área total necessária para atender ao consumo anual da fábrica:
 ## Demanda de 100.000 m³ anuais com produtividade média de 33,7 m³/ha/ano em 7,2 anos
 demanda_de_fabrica <- 100000
 ima <- 33.7
@@ -41,7 +41,8 @@ dados <- r_data_frame(
 ) |> 
   dplyr::mutate(
     idade_atual = ano_atual - ano_plantio, 
-    ima_var = runif(dplyr::n(), min = 30.7, max = 36.7), # sorteia valores de IMA entre 30,7 e 36,7 m³/ha/ano, simulando a variabilidade entre talhões
+    ima_var = runif(dplyr::n(), min = 30.7, max = 36.7), 
+    # sorteia valores de IMA entre 30,7 e 36,7 m³/ha/ano, simulando a variabilidade entre talhões
     idade_colheita = dplyr::case_when(
       idade_atual >= 5 ~ idade_atual,
       .default = 7
